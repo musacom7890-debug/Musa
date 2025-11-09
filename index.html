@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>R23 BTECH Result</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, white, white);
+      color: black;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+      border-radius: 20px;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 6rem;
+      color: #6a1b9a;
+      margin-bottom: 15px;
+      animation: bounce 2s infinite;
+    }
+
+    h1 {
+      text-align: center;
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    form {
+      margin-bottom: 30px;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+
+    button {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      margin: 20px auto;
+      padding: 12px;
+      background-color: lime;
+      color: maroon;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: greenyellow;
+    }
+
+    .loader-container {
+      --uib-size: 45px;
+      --uib-color: black;
+      --uib-speed: 2.5s;
+      display: none;
+      margin: 0 auto;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: var(--uib-size);
+      width: var(--uib-size);
+    }
+
+    .slice {
+      position: relative;
+      height: calc(var(--uib-size) / 6);
+      width: 100%;
+    }
+
+    .slice::before,
+    .slice::after {
+      --uib-a: calc(var(--uib-speed) / -2);
+      --uib-b: calc(var(--uib-speed) / -6);
+      content: '';
+      position: absolute;
+      top: 0;
+      left: calc(50% - var(--uib-size) / 12);
+      height: 100%;
+      width: calc(100% / 6);
+      border-radius: 50%;
+      background-color: var(--uib-color);
+      animation: orbit var(--uib-speed) linear infinite;
+    }
+
+    .slice:nth-child(1)::after { animation-delay: var(--uib-a); }
+    .slice:nth-child(2)::before { animation-delay: var(--uib-b); }
+    .slice:nth-child(2)::after { animation-delay: calc(var(--uib-a) + var(--uib-b)); }
+    .slice:nth-child(3)::before { animation-delay: calc(var(--uib-b) * 2); }
+    .slice:nth-child(3)::after { animation-delay: calc(var(--uib-a) + var(--uib-b) * 2); }
+    .slice:nth-child(4)::before { animation-delay: calc(var(--uib-b) * 3); }
+    .slice:nth-child(4)::after { animation-delay: calc(var(--uib-a) + var(--uib-b) * 3); }
+    .slice:nth-child(5)::before { animation-delay: calc(var(--uib-b) * 4); }
+    .slice:nth-child(5)::after { animation-delay: calc(var(--uib-a) + var(--uib-b) * 4); }
+    .slice:nth-child(6)::before { animation-delay: calc(var(--uib-b) * 5); }
+    .slice:nth-child(6)::after { animation-delay: calc(var(--uib-a) + var(--uib-b) * 5); }
+
+    @keyframes orbit {
+      0% { transform: translateX(calc(var(--uib-size) * 0.25)) scale(0.73684); opacity: 0.65; }
+      25% { transform: translateX(0%) scale(0.47368); opacity: 0.3; }
+      50% { transform: translateX(calc(var(--uib-size) * -0.25)) scale(0.73684); opacity: 0.65; }
+      75% { transform: translateX(0%) scale(1); opacity: 1; }
+      100% { transform: translateX(calc(var(--uib-size) * 0.25)) scale(0.73684); opacity: 0.65; }
+    }
+
+    .summary-container {
+      display: none;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    .summary-card {
+      background: #fce4ec;
+      color: #e1b;
+      padding: 4px 24px;
+      border-radius: 12px;
+      flex: 1 1 120px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 1.05rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      animation: fadeIn 0.6s ease-in;
+      font-weight: bold;
+    }
+
+    .summary-card h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: #6a1b9a;
+    }
+
+    .summary-card p {
+      margin-top: 4px;
+      font-size: 1.5rem;
+    }
+
+    #passButton {
+      width: 50%;
+      display: none;
+      padding: 12px;
+      margin: 20px auto;
+      background-color: maroon;
+      color: lime;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      font-size: 0.7rem;
+      table-layout: fixed;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      white-space: normal;
+    }
+
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(-5px); }
+      50% { transform: translateY(5px); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="icon"><i class="fa fa-id-card"></i></div>
+  <h1><strong>Nimra College of Engineering and Technology</strong></h1>
+  <h2>Result Portal</h2>
+
+  <form id="resultForm">
+    <label for="hallTicketNumber">Enter Your Hall Ticket Number:</label>
+    <input type="text" id="hallTicketNumber" maxlength="10" placeholder="e.g.23231A4404" required />
+
+    <label for="semester">Semester:</label>
+    <input type="number" id="semester" min="1" max="8" required />
+
+    <button type="submit">Get Result</button>
+  </form>
+
+  <div class="loader-container" id="slice">
+    <div class="slice"></div>
+    <div class="slice"></div>
+    <div class="slice"></div>
+    <div class="slice"></div>
+    <div class="slice"></div>
+    <div class="slice"></div>
+  </div>
+
+  <div class="summary-container" id="summaryContainer">
+    <div class="summary-card">
+      <h3>Total Credits</h3>
+      <p id="totalCredits">--</p>
+    </div>
+    <div class="summary-card">
+      <h3>CGPA</h3>
+      <p id="cgpa">--</p>
+    </div>
+  </div>
+
+  <button id="passButton">Your Marksheet</button>
+
+  <div class="table-wrapper">
+    <table id="resultTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Subject Code</th>
+          <th>Subject Name</th>
+          <th>Marks</th>
+          <th>Grade</th>
+          <th>Credits</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <div style="color: yellow;">Powered by <strong>Imam Developer</strong></div>
+    <div style="color: white;">Jawaharlal Nehru Technological University, Kakinada</div>
+  </footer>
+</div>
+<footer><span style="color: blue;">© All Rights Reserved by AADIFACT</span></footer>
+<marquee behavior="scroll" direction="left" style="color: #2c3e50; font-weight: bold; background: #eaf6ff; padding: 10px;">
+  Our Team will update the upcoming new result! As soon as possible || Stay and Connect with our Team || Love you all from ♡Imamul♡
+</marquee>
+
+<script>
+  document.getElementById("resultForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const htno = document.getElementById("hallTicketNumber").value.trim();
+    const sem = parseInt(document.getElementById("semester").value.trim());
+    const slice = document.getElementById("slice");
+    const resultTable = document.getElementById("resultTable");
+    const tbody = resultTable.querySelector("tbody");
+    const cgpaEl = document.getElementById("cgpa");
+    const creditEl = document.getElementById("totalCredits");
+    const passButton = document.getElementById("passButton");
+    const summaryContainer = document.getElementById("summaryContainer");
+
+    if (!htno || isNaN(sem)) return alert("Please fill all fields");
+
+    slice.style.display = "flex";
+    resultTable.style.display = "none";
+    cgpaEl.textContent = creditEl.textContent = "--";
+    passButton.style.display = "none";
+    summaryContainer.style.display = "none";
+
+    fetch(`https://aadifact.pythonanywhere.com/resultapi/${htno}/${sem}/`)
+      .then(res => res.json())
+      .then(data => {
+        slice.style.display = "none";
+        if (!data.data || data.data.length === 0) {
+          window.location.href="noresult.html";
+          return;
+        }
+
+        tbody.innerHTML = "";
+        let passedAll = true;
+
+        data.data.forEach(item => {
+          const [sno, code, name, marks, grade, credit] = item;
+          const row = document.createElement("tr");
+          [code, name, marks, grade, credit].forEach(val => {
+            const cell = document.createElement("td");
+            cell.textContent = val;
+            row.appendChild(cell);
+          });
+          tbody.appendChild(row);
+
+          if (["F", "ABSENT", "RA", "Ab"].includes(grade.toUpperCase())) {
+            passedAll = false;
+          }
+        });
+
+        creditEl.textContent = data.totalcredit ?? "--";
+        cgpaEl.textContent = data.result?.[0]?.[2] ?? "--";
+
+        resultTable.style.display = "table";
+        summaryContainer.style.display = "flex";
+        passButton.style.display = "block";
+        passButton.textContent = "Your Marksheet";
+      })
+      .catch(err => {
+        slice.style.display = "none";
+        window.location.href="noresult.html";
+        console.error(err);
+      });
+  });
+</script>
+</body>
+</html>
